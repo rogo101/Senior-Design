@@ -1,0 +1,5 @@
+Upon changing UI File:
+
+rm MainWindow.py
+pyuic5 mainwindow.ui -o MainWindow.py
+python3 GUI.py

@@ -1,6 +1,6 @@
 # Senior-Design
 
-To run, make sure all dependencies in requirements.txt are satisfied. 
+To run, make sure all dependencies in requirements.txt are satisfied. In addition, install brightness command line tool using "brew install brightness".
 Then, type "python3 main.py" into command line.
 
 The GUI uses the form mainWindow.ui to create the layout, and is then converted to MainWindow.py via the commands in changeGui.txt file. After conversion, it can be used by the python code backend. The form can be edited in Qt Designer. 

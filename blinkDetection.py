@@ -54,7 +54,7 @@ def save_video():
 
     elapsed_time = time.time() - start
 
-    if elapsed_time < num_secs - 0.9 * num_secs:
+    if elapsed_time < num_secs - 1:
         return "Error"
 
     print()

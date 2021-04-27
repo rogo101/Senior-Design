@@ -6,12 +6,11 @@ import os
 import time
 import numpy as np
 import sys
-import glob
-import serial
 # brew install brightness as well
 
 BLINK_RATIO_THRESHOLD = 5.7
 VIDEO_LOCATION = "cam_video.mp4"
+frames_sec = None
 num_secs = 20
 
 def clear_saved_data():
@@ -61,7 +60,8 @@ def save_video():
     print("Sample time:", elapsed_time)
     print("Frames sampled:", frameCount)
     print()
-    print("Frames/Sec", frameCount/elapsed_time)
+    frames_sec = frameCount/elapsed_time
+    print("Frames/Sec", frames_sec)
 
     # Close the window / Release webcam
     cap.release()
@@ -160,16 +160,8 @@ def run_live_blink_detector():
                 cv2.putText(frame,"BLINKING",(10,50), cv2.FONT_HERSHEY_SIMPLEX,
                             2,(255,255,255),2,cv2.LINE_AA)
                 numBlinks += 1
+                cv2.imwrite("data/" + str(numBlinks) + ".jpg", frame)
                 prevTime = time.time()
-
-        #cv2.imwrite("data/" + str(count) + ".jpg", frame)
-
-        continue
-
-        cv2.imshow('BlinkDetector', frame)
-        key = cv2.waitKey(1)
-        if key == 27:
-            break
 
     elapsed_time = time.time() - start
     print("Sample time:", elapsed_time)

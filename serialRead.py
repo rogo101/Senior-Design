@@ -29,25 +29,23 @@ def break_after(seconds=1):
 def getPorts():
     return glob.glob('/dev/tty.*')
 
-@break_after()
 def serialReadAmbient(port):
         s = Serial(port=port, baudrate=9600)
         val = s.readline()
         if val:
             return val
 
+@break_after(5)
 def serialReadAmbientAll():
-    ports = getPorts()[-1:]
-    for i in ports:
-        val = serialReadAmbient(i)
-        if val:
-            val = str(val)
-            found = re.search(".*[0-9]*.*", val)
-            if found:
-                matches = re.findall("[0-9]*", val)
-                for match in matches:
-                    if match:
-                        return match
+    val = serialReadAmbient(getPorts()[-1])
+    if val:
+        val = str(val)
+        found = re.search(".*[0-9]*.*", val)
+        if found:
+            matches = re.findall("[0-9]*", val)
+            for match in matches:
+                if match:
+                    return match
     return "Error"
 
 #Modify to get row by row instead of whole thing at once
@@ -70,8 +68,9 @@ def serialReadImage():
 
 
 if __name__ == "__main__":
-    print(getPorts())
-    # serialReadAmbientAll()
+    # print(getPorts())
+    # while True:
+    #     print(serialReadAmbientAll())
     start = time.time()
     frames = 0
     while True:
